@@ -24,9 +24,8 @@
 git clone <repository-url>
 cd synergy408todo
 ```
-2.  Перейдите в папку проекта: `cd task-manager`
-3.  Установите зависимости для бэкенда: `npm install`
-4.  Установите зависимости для фронтенда: `cd client && npm install`
+2.  Установите зависимости для бэкенда: `npm install`
+3.  Установите зависимости для фронтенда: `cd client && npm install`
 4. Откройте http://localhost:5173 в браузере
 
 ## Участники команды
