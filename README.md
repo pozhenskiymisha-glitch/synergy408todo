@@ -12,7 +12,7 @@
 *   Изучить работу в команде с использованием Git/GitHub.
 *   Освоить полный цикл разработки веб-приложения.
 *   Применить на практике знания по [HTML, CSS и JavaScript].
-*   Отобразить сайт https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
+*   Отобразить сайт
 
 ## Стек технологий
 
@@ -31,6 +31,9 @@ cd synergy408todo
 2.  Установите зависимости для бэкенда: `npm install`
 3.  Установите зависимости для фронтенда: `cd client && npm install`
 4. Откройте http://localhost:5173 в браузере
+
+Сайт:
+https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
 
 ## Участники команды
 
