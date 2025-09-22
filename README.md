@@ -19,11 +19,15 @@
 
 ## Установка и запуск
 
-1.  Клонируйте репозиторий: `git clone [https://github.com/pozhenskiymisha-glitch/synergy408todo]`
+1. Клонируйте репозиторий:
+```bash
+git clone <repository-url>
+cd synergy408todo
+```
 2.  Перейдите в папку проекта: `cd task-manager`
 3.  Установите зависимости для бэкенда: `npm install`
 4.  Установите зависимости для фронтенда: `cd client && npm install`
-5.  Запустите сервер разработки: ...
+4. Откройте http://localhost:5173 в браузере
 
 ## Участники команды
 
