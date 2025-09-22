@@ -12,7 +12,7 @@
 *   Изучить работу в команде с использованием Git/GitHub.
 *   Освоить полный цикл разработки веб-приложения.
 *   Применить на практике знания по [HTML, CSS и JavaScript].
-*   Отобразить сайт
+*   Отобразить сайт https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
 
 ## Стек технологий
 
