@@ -1,4 +1,4 @@
-# synergy408todo
+# Synergy408todo
 Веб-приложение "To-Do List".Проект группы ВБиО-408рсоб, Университет Синергия  Команда:  Поженский М.Б
 # "To-Do List pozhenskiy "
 
