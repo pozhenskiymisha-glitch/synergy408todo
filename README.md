@@ -38,4 +38,5 @@ https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
 ## Участники команды
 
 *   [Михаил](https://github.com/pozhenskiymisha-glitch)
+*   [Андрей](ссылка будет!).
   
