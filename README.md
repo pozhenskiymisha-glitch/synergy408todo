@@ -1,7 +1,7 @@
 # Synergy408todo
 Веб-приложение "To-Do List".
 Проект группы ВБиО-408рсоб, Университет Синергия  
-Команда:  Поженский М.Б
+Команда:  Поженский М.Б; Анфилофьев Вадим
 
 # "To-Do List SITE "
 
@@ -38,5 +38,6 @@ https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
 ## Участники команды
 
 *   [Михаил](https://github.com/pozhenskiymisha-glitch)
+*   [Вадим(
 *   [Андрей](ссылка будет!).
   
