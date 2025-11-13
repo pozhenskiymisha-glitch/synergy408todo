@@ -39,5 +39,5 @@ https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
 
 *   [Михаил](https://github.com/pozhenskiymisha-glitch)
 *   [Вадим(
-*   [Андрей](ссылка будет!).
+*   [Андрей](https://github.com/De4enser)
   
