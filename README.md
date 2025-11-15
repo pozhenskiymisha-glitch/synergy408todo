@@ -33,7 +33,7 @@ cd synergy408todo
 4. Откройте http://localhost:5173 в браузере
 
 Сайт:
-https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html
+[https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/frontend/index.html)
 
 ## Участники команды
 
