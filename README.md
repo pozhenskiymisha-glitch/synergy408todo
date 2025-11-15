@@ -41,21 +41,27 @@ git clone <repository-url>
 cd synergy408todo
 ```
 2.  Установите зависимости бэкенда
-    cd backend
-    npm install
-    //Сервер будет доступен на http://localhost:3000
+```bash
+cd backend
+npm install
+```
+'Сервер будет доступен на http://localhost:3000'
 4.  Запустите сервер:
-    node server.js
+```bash
+node server.js
+```
 5.  Откройте фронтенд:
-    Перейдите в папку frontend
-    Откройте файл index.html в браузере (двойным кликом или через локальный сервер)
+`Перейдите в папку frontend`;
+`Откройте файл index.html в браузере (двойным кликом или через локальный сервер)`.
 
 Демонстрационная версия без авторизации и без бэкенда (использует localStorage) доступна по ссылке:
+
 [https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/frontend/index.html)
-//Для работы полной версии (с авторизацией и SQLite) требуется локальный запуск бэкенда
+
+`Для работы полной версии (с авторизацией и SQLite) требуется локальный запуск бэкенда`
 
 ## Структура проекта
-
+```bash
 synergy408todo/
 ├── backend/              # Express.js + SQLite
 │   ├── server.js         # API-сервер
@@ -65,6 +71,7 @@ synergy408todo/
 │   ├── style.css         # Стили
 │   └── script.js         # Логика фронтенда
 └── README.md             # Этот файл
+```
 
 ## Участники команды
 
