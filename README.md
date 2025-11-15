@@ -59,6 +59,11 @@ node server.js
 
 [https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/frontend/index.html)
 
+```bash
+попробуйте восспользоваться учетной записью:
+логин - 0gi1y@2200freefonts.com
+пароль - 123456
+```
 `Для работы полной версии (с авторизацией и SQLite) требуется локальный запуск бэкенда`
 
 ## Структура проекта
