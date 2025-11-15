@@ -51,9 +51,7 @@ cd synergy408todo
     Откройте файл index.html в браузере (двойным кликом или через локальный сервер)
 
 Демонстрационная версия без авторизации и без бэкенда (использует localStorage) доступна по ссылке:
-
 [https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/frontend/index.html)
-
 //Для работы полной версии (с авторизацией и SQLite) требуется локальный запуск бэкенда
 
 ## Структура проекта
