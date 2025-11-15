@@ -1,13 +1,16 @@
-// frontend/script.js
 document.addEventListener('DOMContentLoaded', function () {
-  // DOM
-  const emailInput = document.getElementById('email');
-  const passwordInput = document.getElementById('password');
+  // DOM Elements
+  const loginSection = document.getElementById('login-section');
+  const appSection = document.getElementById('app-section');
   const loginForm = document.getElementById('login-form');
   const registerForm = document.getElementById('register-form');
-  const authSection = document.getElementById('auth-section');
-  const appSection = document.getElementById('app-section');
+  const showRegisterLink = document.getElementById('show-register');
+  const showLoginLink = document.getElementById('show-login');
+  const backToLogin = document.getElementById('back-to-login');
+  const userEmail = document.getElementById('user-email');
+  const logoutBtn = document.getElementById('logout-btn');
 
+  // To-Do elements
   const taskInput = document.getElementById('task-input');
   const taskList = document.getElementById('task-list');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -18,17 +21,20 @@ document.addEventListener('DOMContentLoaded', function () {
   let authToken = localStorage.getItem('authToken');
   let currentFilter = 'all';
 
-  // Показать нужный экран
+  // Проверка входа
   if (authToken) {
-    authSection.style.display = 'none';
+    // Получим email пользователя из токена (упрощённо — можно хранить отдельно)
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    userEmail.textContent = user.email || 'Пользователь';
+    loginSection.style.display = 'none';
     appSection.style.display = 'block';
     loadTasks();
   } else {
-    authSection.style.display = 'block';
+    loginSection.style.display = 'flex';
     appSection.style.display = 'none';
   }
 
-  // ===== АВТОРИЗАЦИЯ =====
+  // ========== API ==========
   function apiFetch(url, options = {}) {
     return fetch(`http://localhost:3000${url}`, {
       ...options,
@@ -40,10 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // ========== AUTH ==========
   loginForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = emailInput.value.trim();
-    const password = passwordInput.value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     try {
       const res = await fetch('http://localhost:3000/api/login', {
         method: 'POST',
@@ -53,8 +60,10 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('authToken', data.token);
+        localStorage.setItem('currentUser', JSON.stringify({ email }));
         authToken = data.token;
-        authSection.style.display = 'none';
+        userEmail.textContent = email;
+        loginSection.style.display = 'none';
         appSection.style.display = 'block';
         loadTasks();
       } else {
@@ -67,12 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   registerForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('reg-email').value.trim();
+    const email = document.getElementById('reg-email').value;
     const password = document.getElementById('reg-password').value;
-    if (password.length < 6) {
-      alert('Пароль должен быть не менее 6 символов');
-      return;
-    }
     try {
       const res = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
@@ -81,7 +86,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       const data = await res.json();
       if (res.ok) {
-        alert('✅ Регистрация успешна! Войдите.');
+        alert('✅ Регистрация успешна! Теперь войдите.');
+        showLoginLink.click();
       } else {
         alert('❌ ' + data.error);
       }
@@ -90,12 +96,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // ===== ЗАДАЧИ =====
+  // Переключение форм
+  showRegisterLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginForm.style.display = 'none';
+    registerForm.style.display = 'block';
+    document.querySelector('.auth-toggle').style.display = 'none';
+    backToLogin.style.display = 'block';
+  });
+  showLoginLink?.addEventListener('click', (e) => {
+    e.preventDefault();
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+    document.querySelector('.auth-toggle').style.display = 'block';
+    backToLogin.style.display = 'none';
+  });
+
+  // ========== ВЫХОД ==========
+  logoutBtn?.addEventListener('click', () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    authToken = null;
+    loginSection.style.display = 'flex';
+    appSection.style.display = 'none';
+    taskList.innerHTML = '';
+    tasksCount.textContent = '0 задач';
+    progressBar.style.width = '0%';
+  });
+
+  // ========== TO-DO ==========
   async function loadTasks() {
-    const res = await apiFetch('/api/tasks');
-    const tasks = await res.json();
-    renderTasks(tasks);
-    updateTasksCount(tasks);
+    try {
+      const res = await apiFetch('/api/tasks');
+      const tasks = await res.json();
+      renderTasks(tasks);
+      updateTasksCount(tasks);
+    } catch (err) {
+      alert('Ошибка загрузки задач');
+    }
   }
 
   async function addTask(text) {
@@ -120,7 +158,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     taskList.innerHTML = '';
     if (filtered.length === 0) {
-      taskList.innerHTML = `<li class="empty-state"><i class="fas fa-clipboard-list"></i><br>Нет задач</li>`;
+      const empty = document.createElement('li');
+      empty.className = 'empty-state';
+      let msg = 'Нет задач';
+      if (currentFilter === 'all') msg = 'Список пуст. Добавьте задачу!';
+      empty.innerHTML = `<i class="fas fa-clipboard-list"></i><br>${msg}`;
+      taskList.appendChild(empty);
       return;
     }
 
@@ -128,12 +171,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       li.className = `task-item ${task.completed ? 'completed' : ''}`;
       li.innerHTML = `
-        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+        <input type="checkbox" ${task.completed ? 'checked' : ''}>
         <span class="task-text">${task.text}</span>
         <button class="delete-btn"><i class="fas fa-trash"></i></button>
       `;
-      li.querySelector('.task-checkbox').onchange = () => toggleTask(task.id, !task.completed);
-      li.querySelector('.delete-btn').onclick = () => deleteTask(task.id);
+      li.querySelector('input').addEventListener('change', () => toggleTask(task.id, !task.completed));
+      li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(task.id));
       taskList.appendChild(li);
     });
   }
@@ -146,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
     progressBar.style.width = total ? `${(completed / total) * 100}%` : '0%';
   }
 
-  // ===== ОБРАБОТЧИКИ =====
+  // Добавление задачи по Enter
   taskInput?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       const text = taskInput.value.trim();
@@ -157,20 +200,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Фильтрация
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
       filterBtns.forEach(b => b.classList.toggle('active', b === btn));
-      // задачи перерисуются при следующем loadTasks (например, после добавления)
+      // Перерисовка при следующем loadTasks (или можно вызвать сейчас)
     });
   });
 
+  // Очистка завершённых
   clearCompletedBtn?.addEventListener('click', async () => {
     if (confirm('Удалить все завершённые задачи?')) {
       const res = await apiFetch('/api/tasks');
       const tasks = await res.json();
-      const completedIds = tasks.filter(t => t.completed).map(t => t.id);
-      for (const id of completedIds) {
+      const ids = tasks.filter(t => t.completed).map(t => t.id);
+      for (const id of ids) {
         await apiFetch(`/api/tasks/${id}`, { method: 'DELETE' });
       }
       loadTasks();

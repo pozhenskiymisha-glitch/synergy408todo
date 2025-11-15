@@ -8,34 +8,37 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <!-- Экран авторизации -->
-  <div id="auth-section" class="auth-container">
-    <div class="auth-form">
-      <h2>Вход</h2>
-      <form id="login-form">
-        <input type="email" id="email" placeholder="Email" required />
-        <input type="password" id="password" placeholder="Пароль" required />
-        <button type="submit">Войти</button>
-      </form>
-      <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрируйтесь</a></p>
-    </div>
+  <!-- Экран входа -->
+  <div id="login-section" class="container" style="display: none;">
+    <header>
+      <h1>Вход в систему</h1>
+      <p class="subtitle">Пожалуйста, войдите, чтобы продолжить</p>
+    </header>
+    <form id="login-form" class="input-section">
+      <input type="email" id="email" placeholder="Ваш email..." required />
+      <input type="password" id="password" placeholder="Пароль..." required minlength="6" />
+      <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Войти</button>
+    </form>
+    <p class="auth-toggle">
+      Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a>
+    </p>
 
-    <div class="auth-form" id="register-form-container" style="display:none;">
-      <h2>Регистрация</h2>
-      <form id="register-form">
-        <input type="email" id="reg-email" placeholder="Email" required />
-        <input type="password" id="reg-password" placeholder="Пароль (мин. 6 симв.)" required minlength="6" />
-        <button type="submit">Зарегистрироваться</button>
-      </form>
-      <p>Уже есть аккаунт? <a href="#" onclick="showLogin()">Войдите</a></p>
-    </div>
+    <!-- Форма регистрации -->
+    <form id="register-form" class="input-section" style="display: none;">
+      <input type="email" id="reg-email" placeholder="Ваш email..." required />
+      <input type="password" id="reg-password" placeholder="Пароль (мин. 6 символов)..." required minlength="6" />
+      <button type="submit" class="btn-primary"><i class="fas fa-user-plus"></i> Зарегистрироваться</button>
+    </form>
+    <p class="auth-toggle" style="display: none;" id="back-to-login">
+      Уже есть аккаунт? <a href="#" id="show-login">Войти</a>
+    </p>
   </div>
 
   <!-- Основное приложение -->
-  <div id="app-section" class="container" style="display:none;">
+  <div id="app-section" class="container" style="display: none;">
     <header>
       <h1>To-Do List</h1>
-      <p class="subtitle">Добро пожаловать!</p>
+      <p class="subtitle">Привет, <span id="user-email"></span>!</p>
     </header>
 
     <div class="input-section">
@@ -57,17 +60,13 @@
     <div class="progress-bar">
       <div class="progress" id="progress-bar"></div>
     </div>
+
+    <!-- Кнопка выхода -->
+    <div style="text-align: center; margin-top: 20px;">
+      <button id="logout-btn" class="btn-danger">Выйти</button>
+    </div>
   </div>
 
-  <script>
-    function showRegister() {
-      document.getElementById('auth-section').querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
-      document.getElementById('register-form-container').style.display = 'block';
-    }
-    function showLogin() {
-      document.getElementById('auth-section').querySelectorAll('.auth-form').forEach(f => f.style.display = 'block');
-    }
-  </script>
   <script src="script.js"></script>
 </body>
 </html>

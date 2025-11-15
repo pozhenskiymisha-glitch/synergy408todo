@@ -262,3 +262,83 @@ h1 {
     text-align: center;
   }
 }
+/* ===== Стили для экрана входа ===== */
+#login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#login-section input[type="email"],
+#login-section input[type="password"] {
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+#login-section input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(107, 107, 242, 0.5);
+  box-shadow: 0 0 0 3px rgba(107, 107, 242, 0.2);
+}
+#login-section input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.btn-primary {
+  padding: 15px 25px;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+}
+.btn-danger {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #ea4c35, #c0392b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+.auth-toggle {
+  margin-top: 15px;
+  text-align: center;
+  color: #a0a0c0;
+  font-size: 0.9rem;
+}
+.auth-toggle a {
+  color: #6a11cb;
+  text-decoration: none;
+}
+.auth-toggle a:hover {
+  text-decoration: underline;
+}
+
+/* Скрытие основного приложения по умолчанию */
+#app-section {
+  display: none;
+}
