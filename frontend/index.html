@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <!-- Экран авторизации -->
+  <div id="auth-section" class="auth-container">
+    <div class="auth-form">
+      <h2>Вход</h2>
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Пароль" required />
+        <button type="submit">Войти</button>
+      </form>
+      <p>Нет аккаунта? <a href="#" onclick="showRegister()">Зарегистрируйтесь</a></p>
+    </div>
+
+    <div class="auth-form" id="register-form-container" style="display:none;">
+      <h2>Регистрация</h2>
+      <form id="register-form">
+        <input type="email" id="reg-email" placeholder="Email" required />
+        <input type="password" id="reg-password" placeholder="Пароль (мин. 6 симв.)" required minlength="6" />
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+      <p>Уже есть аккаунт? <a href="#" onclick="showLogin()">Войдите</a></p>
+    </div>
+  </div>
+
+  <!-- Основное приложение -->
+  <div id="app-section" class="container" style="display:none;">
+    <header>
+      <h1>To-Do List</h1>
+      <p class="subtitle">Добро пожаловать!</p>
+    </header>
+
+    <div class="input-section">
+      <input type="text" id="task-input" placeholder="Введите задачу и нажмите Enter..." />
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Все</button>
+      <button class="filter-btn" data-filter="active">Активные</button>
+      <button class="filter-btn" data-filter="completed">Завершённые</button>
+    </div>
+
+    <ul id="task-list"></ul>
+
+    <div class="stats">
+      <span id="tasks-count">0 задач</span>
+      <button id="clear-completed">Очистить завершённые</button>
+    </div>
+    <div class="progress-bar">
+      <div class="progress" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <script>
+    function showRegister() {
+      document.getElementById('auth-section').querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
+      document.getElementById('register-form-container').style.display = 'block';
+    }
+    function showLogin() {
+      document.getElementById('auth-section').querySelectorAll('.auth-form').forEach(f => f.style.display = 'block');
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
