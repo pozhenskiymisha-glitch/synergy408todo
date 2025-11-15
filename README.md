@@ -45,7 +45,8 @@ cd synergy408todo
 cd backend
 npm install
 ```
-'Сервер будет доступен на http://localhost:3000'
+`Сервер будет доступен на http://localhost:3000`
+
 4.  Запустите сервер:
 ```bash
 node server.js
