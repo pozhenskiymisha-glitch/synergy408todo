@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let authToken = localStorage.getItem('authToken');
   let currentFilter = 'all';
+  let allTasks = [];
 
   // Проверка входа
   if (authToken) {
-    // Получим email пользователя из токена (упрощённо — можно хранить отдельно)
     const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
     userEmail.textContent = user.email || 'Пользователь';
     loginSection.style.display = 'none';
@@ -128,9 +128,9 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadTasks() {
     try {
       const res = await apiFetch('/api/tasks');
-      const tasks = await res.json();
-      renderTasks(tasks);
-      updateTasksCount(tasks);
+      allTasks = await res.json();
+      renderTasks();
+      updateTasksCount();
     } catch (err) {
       alert('Ошибка загрузки задач');
     }
@@ -151,10 +151,10 @@ document.addEventListener('DOMContentLoaded', function () {
     loadTasks();
   }
 
-  function renderTasks(tasks) {
-    let filtered = tasks;
-    if (currentFilter === 'active') filtered = tasks.filter(t => !t.completed);
-    if (currentFilter === 'completed') filtered = tasks.filter(t => t.completed);
+  function renderTasks() {
+    let filtered = allTasks;
+    if (currentFilter === 'active') filtered = allTasks.filter(t => !t.completed);
+    if (currentFilter === 'completed') filtered = allTasks.filter(t => t.completed);
 
     taskList.innerHTML = '';
     if (filtered.length === 0) {
@@ -162,6 +162,8 @@ document.addEventListener('DOMContentLoaded', function () {
       empty.className = 'empty-state';
       let msg = 'Нет задач';
       if (currentFilter === 'all') msg = 'Список пуст. Добавьте задачу!';
+      else if (currentFilter === 'active') msg = 'Нет активных задач!';
+      else if (currentFilter === 'completed') msg = 'Нет завершённых задач!';
       empty.innerHTML = `<i class="fas fa-clipboard-list"></i><br>${msg}`;
       taskList.appendChild(empty);
       return;
@@ -171,25 +173,25 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       li.className = `task-item ${task.completed ? 'completed' : ''}`;
       li.innerHTML = `
-        <input type="checkbox" ${task.completed ? 'checked' : ''}>
+        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
         <span class="task-text">${task.text}</span>
         <button class="delete-btn"><i class="fas fa-trash"></i></button>
       `;
-      li.querySelector('input').addEventListener('change', () => toggleTask(task.id, !task.completed));
+      li.querySelector('.task-checkbox').addEventListener('change', () => toggleTask(task.id, !task.completed));
       li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(task.id));
       taskList.appendChild(li);
     });
   }
 
-  function updateTasksCount(tasks) {
-    const total = tasks.length;
-    const completed = tasks.filter(t => t.completed).length;
+  function updateTasksCount() {
+    const total = allTasks.length;
+    const completed = allTasks.filter(t => t.completed).length;
     const active = total - completed;
     tasksCount.textContent = `${active} активных, ${completed} завершённых, всего ${total}`;
     progressBar.style.width = total ? `${(completed / total) * 100}%` : '0%';
   }
 
-  // Добавление задачи по Enter
+  // Добавление по Enter
   taskInput?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
       const text = taskInput.value.trim();
@@ -200,22 +202,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Фильтрация
+  // ФИЛЬТРАЦИЯ — исправлено!
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       currentFilter = btn.dataset.filter;
       filterBtns.forEach(b => b.classList.toggle('active', b === btn));
-      // Перерисовка при следующем loadTasks (или можно вызвать сейчас)
+      renderTasks(); // <-- главная строка: перерисовка при смене фильтра
     });
   });
 
   // Очистка завершённых
   clearCompletedBtn?.addEventListener('click', async () => {
+    if (!allTasks.some(t => t.completed)) {
+      alert('Нет завершённых задач для очистки!');
+      return;
+    }
     if (confirm('Удалить все завершённые задачи?')) {
-      const res = await apiFetch('/api/tasks');
-      const tasks = await res.json();
-      const ids = tasks.filter(t => t.completed).map(t => t.id);
-      for (const id of ids) {
+      const completedIds = allTasks.filter(t => t.completed).map(t => t.id);
+      for (const id of completedIds) {
         await apiFetch(`/api/tasks/${id}`, { method: 'DELETE' });
       }
       loadTasks();

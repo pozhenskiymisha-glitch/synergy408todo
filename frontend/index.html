@@ -9,29 +9,29 @@
 </head>
 <body>
   <!-- Экран входа -->
-  <div id="login-section" class="container" style="display: none;">
-    <header>
-      <h1>Вход в систему</h1>
-      <p class="subtitle">Пожалуйста, войдите, чтобы продолжить</p>
-    </header>
-    <form id="login-form" class="input-section">
-      <input type="email" id="email" placeholder="Ваш email..." required />
-      <input type="password" id="password" placeholder="Пароль..." required minlength="6" />
-      <button type="submit" class="btn-primary"><i class="fas fa-sign-in-alt"></i> Войти</button>
-    </form>
-    <p class="auth-toggle">
-      Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a>
-    </p>
+  <div id="login-section" class="login-container">
+    <div class="login-box">
+      <h2>Вход в систему</h2>
+      <p class="login-subtitle">Пожалуйста, войдите, чтобы продолжить</p>
+      <form id="login-form" class="login-form">
+        <input type="email" id="email" placeholder="Ваш email..." required />
+        <input type="password" id="password" placeholder="Пароль..." required minlength="6" />
+        <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Войти</button>
+      </form>
+      <p class="auth-toggle">
+        Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a>
+      </p>
 
-    <!-- Форма регистрации -->
-    <form id="register-form" class="input-section" style="display: none;">
-      <input type="email" id="reg-email" placeholder="Ваш email..." required />
-      <input type="password" id="reg-password" placeholder="Пароль (мин. 6 символов)..." required minlength="6" />
-      <button type="submit" class="btn-primary"><i class="fas fa-user-plus"></i> Зарегистрироваться</button>
-    </form>
-    <p class="auth-toggle" style="display: none;" id="back-to-login">
-      Уже есть аккаунт? <a href="#" id="show-login">Войти</a>
-    </p>
+      <!-- Форма регистрации -->
+      <form id="register-form" class="login-form" style="display: none;">
+        <input type="email" id="reg-email" placeholder="Ваш email..." required />
+        <input type="password" id="reg-password" placeholder="Пароль (мин. 6 символов)..." required minlength="6" />
+        <button type="submit" class="btn-login"><i class="fas fa-user-plus"></i> Зарегистрироваться</button>
+      </form>
+      <p class="auth-toggle" style="display: none;" id="back-to-login">
+        Уже есть аккаунт? <a href="#" id="show-login">Войти</a>
+      </p>
+    </div>
   </div>
 
   <!-- Основное приложение -->
@@ -55,14 +55,13 @@
 
     <div class="stats">
       <span id="tasks-count">0 задач</span>
-      <button id="clear-completed">Очистить завершённые</button>
+      <button id="clear-completed" class="clear-btn">Очистить завершённые</button>
     </div>
     <div class="progress-bar">
       <div class="progress" id="progress-bar"></div>
     </div>
 
-    <!-- Кнопка выхода -->
-    <div style="text-align: center; margin-top: 20px;">
+    <div class="logout-container">
       <button id="logout-btn" class="btn-danger">Выйти</button>
     </div>
   </div>
