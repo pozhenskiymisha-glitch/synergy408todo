@@ -94,6 +94,6 @@ synergy408todo/
 ## Участники команды
 
 *   [Михаил](https://github.com/pozhenskiymisha-glitch)
-*   [Вадим(
+*   [Вадим] [1](https://github.com/foltersoft1-cloud) [2](https://github.com/fribery)
 *   [Андрей](https://github.com/De4enser)
   
