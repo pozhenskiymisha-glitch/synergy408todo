@@ -59,7 +59,7 @@ node server.js
 
 **Полнофункциональная демо-версия** (с регистрацией и входом) доступна онлайн:
 
-[https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/frontend/index.html)
+[https://pozhenskiymisha-glitch.github.io/synergy408todo/To-Do-List.html](https://pozhenskiymisha-glitch.github.io/synergy408todo/demo/index.html)
 
 ```bash
 попробуйте восспользоваться учетной записью:
